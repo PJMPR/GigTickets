@@ -5,7 +5,10 @@ package domain;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import domain.Ticket.Category;
+
+import dao.TicketRepository;
+import domain.model.Ticket;
+import domain.model.Ticket.Category;
 
 public class Main {
 
