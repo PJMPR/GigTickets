@@ -51,5 +51,4 @@ public class TicketRepository extends RepositoryBase<Ticket> {
 		update.setInt(5, ticket.getQuantity());
 	}
 
-
 }

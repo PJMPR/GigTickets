@@ -13,9 +13,9 @@ public class ITicketRepository extends IRepository<Ticket> {
 	public List<Ticket> withLocation(String location);
 
 	public List<Ticket> withDate(String date);
-	
+
 	public List<Ticket> byPrice(Int price);
-	
+
 	public List<Ticket> byQuantity(Int quantity);
-	
+
 }
