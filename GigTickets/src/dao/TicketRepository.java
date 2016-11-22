@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import domain.model.Ticket;
 
-public class TicketRepository extends BaseRepository {
+public class TicketRepository extends RepositoryBase {
 
 	String insertSql = "INSERT INTO tickets(name, date, location, price, quantity) VALUES (?,?,?,?,?)";
 	String selectByIdSql = "SELECT * FROM people WHERE id=?";
