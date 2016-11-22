@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import domain.model.User;
 
-public class UserMapper implements IMapResultSetIntoEntity<User>{
+public class UserMapper implements IMapResultSetIntoEntity<User> {
 
 	public User map(ResultSet rs) throws SQLException {
 		User user = new User();

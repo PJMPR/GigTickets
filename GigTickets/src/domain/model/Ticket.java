@@ -1,17 +1,27 @@
 package domain.model;
 
-public class Ticket implements IHaveId{
+import java.util.Date;
+
+public class Ticket implements IHaveId {
 
 	private int id;
-	private Category category;
 	private String name;
 	private String date;
 	private String location;
 	private int price;
 	private int quantity;
 
-	public enum Category {
-		rock, hard, heavy, pop, jazz, blues, elektro, techno, rap, reggae, pozostale;
+	public Ticket(Integer id, String name, String date, String location, Integer price, Integer quantity) {
+		this.id = id;
+		this.name = name;
+		this.date = date;
+		this.location = location;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public Ticket() {
+
 	}
 
 	public int getId() {
@@ -20,14 +30,6 @@ public class Ticket implements IHaveId{
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 
 	public String getName() {
@@ -49,6 +51,7 @@ public class Ticket implements IHaveId{
 	public String getLocation() {
 		return location;
 	}
+
 	public void setLocation(String location) {
 		this.location = location;
 	}

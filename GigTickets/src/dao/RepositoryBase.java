@@ -21,34 +21,28 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 	protected PreparedStatement update;
 	protected PreparedStatement delete;
 	protected PreparedStatement selectAll;
-	
-	protected IMapResultSetIntoEntity<TEntity> mapper; 
+
+	protected IMapResultSetIntoEntity<TEntity> mapper;
 
 	public Connection getConnection() {
 		return connection;
 	}
-	
-	protected RepositoryBase(Connection connection,
-			IMapResultSetIntoEntity<TEntity> mapper){
+
+	protected RepositoryBase(Connection connection, IMapResultSetIntoEntity<TEntity> mapper) {
 		this.connection = connection;
-		try{
-			this.mapper=mapper;
+		try {
+			this.mapper = mapper;
 			createTableIfnotExists();
 			insert = connection.prepareStatement(insertSql());
 			selectById = connection.prepareStatement(selectByIdSql());
-			update=connection.prepareStatement(updateSql());
-			delete=connection.prepareStatement(deleteSql());
-			selectAll=connection.prepareStatement(selectAllSql());
-		}
-		catch(SQLException ex){
+			update = connection.prepareStatement(updateSql());
+			delete = connection.prepareStatement(deleteSql());
+			selectAll = connection.prepareStatement(selectAllSql());
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see dao.IRepository#getAll()
-	 */
 	public List<TEntity> getAll() {
 		try {
 			ResultSet rs = selectAll.executeQuery();
@@ -63,9 +57,6 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.IRepository#get(int)
-	 */
 	public TEntity get(int personId) {
 		try {
 			selectById.setInt(1, personId);
@@ -80,10 +71,6 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see dao.IRepository#update(TEntity)
-	 */
 	public void update(TEntity entity) {
 		try {
 			setUpdate(entity);
@@ -94,9 +81,6 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.IRepository#add(TEntity)
-	 */
 	public void add(TEntity entity) {
 		try {
 			setInsert(entity);
@@ -105,9 +89,7 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 			ex.printStackTrace();
 		}
 	}
-	/* (non-Javadoc)
-	 * @see dao.IRepository#delete(TEntity)
-	 */
+
 	public void delete(TEntity entity) {
 		try {
 			delete.setInt(1, entity.getId());
@@ -116,45 +98,45 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected String selectByIdSql() {
-		return "SELECT * FROM "
-				+ tableName()
-				+ " WHERE id=?";
+		return "SELECT * FROM " + tableName() + " WHERE id=?";
 	}
 
-
 	protected String deleteSql() {
-		return "DELETE FROM "
-				+ tableName()
-				+ " WHERE id=?";
+		return "DELETE FROM " + tableName() + " WHERE id=?";
 	}
 
 	protected String selectAllSql() {
-		return "SELECT * FROM "+tableName();
+		return "SELECT * FROM " + tableName();
 	}
 
 	private void createTableIfnotExists() throws SQLException {
-			Statement createTable = this.connection.createStatement();
+		Statement createTable = this.connection.createStatement();
 
-			boolean tableExists = false;
+		boolean tableExists = false;
 
-			ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
+		ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
 
-			while (rs.next()) {
-				if (rs.getString("Table_Name").equalsIgnoreCase(tableName())) {
-					tableExists = true;
-					break;
-				}
+		while (rs.next()) {
+			if (rs.getString("Table_Name").equalsIgnoreCase(tableName())) {
+				tableExists = true;
+				break;
 			}
-			if (!tableExists)
-				createTable.executeUpdate(createTableSql());
+		}
+		if (!tableExists)
+			createTable.executeUpdate(createTableSql());
 	}
 
 	protected abstract String insertSql();
+
 	protected abstract String updateSql();
+
 	protected abstract void setUpdate(TEntity entity) throws SQLException;
+
 	protected abstract void setInsert(TEntity entity) throws SQLException;
+
 	protected abstract String createTableSql();
+
 	protected abstract String tableName();
 }
