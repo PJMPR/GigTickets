@@ -1,12 +1,10 @@
 package dao.repositories;
 
-import java.util.Date;
 import java.util.List;
 
-import domain.model.History;
 import domain.model.Ticket;
 
-public class ITicketRepository extends IRepository<Ticket> {
+public interface ITicketRepository extends IRepository<Ticket> {
 
 	public List<Ticket> withName(String name);
 
@@ -14,8 +12,8 @@ public class ITicketRepository extends IRepository<Ticket> {
 
 	public List<Ticket> withDate(String date);
 
-	public List<Ticket> byPrice(Int price);
+	public List<Ticket> byPrice(Integer price);
 
-	public List<Ticket> byQuantity(Int quantity);
+	public List<Ticket> byQuantity(Integer quantity);
 
 }
