@@ -5,11 +5,12 @@ import java.sql.SQLException;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import domain.model.User;
+import dao.uow.IUnitOfWork;
 
 public class UserRepository extends RepositoryBase<User> {
 
-	public UserRepository(Connection connection, IMapResultSetIntoEntity<User> mapper) {
-		super(connection, mapper);
+	public UserRepository(Connection connection, IMapResultSetIntoEntity<User> mapper, IUnitOfWork uow) {
+		super(connection, mapper, uow);
 	}
 
 	@Override
@@ -44,4 +45,5 @@ public class UserRepository extends RepositoryBase<User> {
 		insert.setString(2, entity.getSurname());
 	}
 
+	// Add Lists
 }

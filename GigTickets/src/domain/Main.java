@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
-			TicketRepository ticketRepository = new TicketRepository(connection, null);
+			TicketRepository ticketRepository = new TicketRepository(connection, null, null);
 			Ticket ticket1 = new Ticket();
 			ticket1.setName("tede");
 			ticket1.setDate("11-11-2016");

@@ -1,7 +1,5 @@
 package domain.model;
 
-import java.util.Date;
-
 public class Ticket implements IHaveId {
 
 	private int id;

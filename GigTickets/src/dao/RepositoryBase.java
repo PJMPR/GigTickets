@@ -10,9 +10,12 @@ import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import dao.repositories.IRepository;
+import dao.uow.Entity;
+import dao.uow.IUnitOfWork;
+import dao.uow.IUnitOfWorkRepository;
 import domain.model.IHaveId;
 
-public abstract class RepositoryBase<TEntity extends IHaveId> implements IRepository<TEntity> {
+public abstract class RepositoryBase<TEntity extends IHaveId> implements IRepository<TEntity>, IUnitOfWorkRepository {
 
 	protected Connection connection;
 
@@ -21,15 +24,16 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 	protected PreparedStatement update;
 	protected PreparedStatement delete;
 	protected PreparedStatement selectAll;
-
+	protected IUnitOfWork uow;
 	protected IMapResultSetIntoEntity<TEntity> mapper;
 
 	public Connection getConnection() {
 		return connection;
 	}
 
-	protected RepositoryBase(Connection connection, IMapResultSetIntoEntity<TEntity> mapper) {
+	protected RepositoryBase(Connection connection, IMapResultSetIntoEntity<TEntity> mapper, IUnitOfWork uow) {
 		this.connection = connection;
+		this.uow = uow;
 		try {
 			this.mapper = mapper;
 			createTableIfnotExists();
@@ -71,28 +75,48 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements IReposi
 
 	}
 
+	public void add(TEntity entity) {
+		Entity ent = new Entity(this);
+		ent.setEntity(entity);
+		uow.markAsNew(ent);
+
+	}
+
+	public void delete(TEntity entity) {
+		Entity ent = new Entity(this);
+		ent.setEntity(entity);
+		uow.markAsDeleted(ent);
+	}
+
 	public void update(TEntity entity) {
+		Entity ent = new Entity(this);
+		ent.setEntity(entity);
+		uow.markAsChanged(ent);
+	}
+
+	public void persistUpdate(Entity entity) {
 		try {
-			setUpdate(entity);
-			update.setInt(3, entity.getId());
+			TEntity ent = (TEntity) entity.getEntity();
+			setUpdate(ent);
+			update.setInt(3, ent.getId());
 			update.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void add(TEntity entity) {
+	public void persistAdd(Entity entity) {
 		try {
-			setInsert(entity);
+			setInsert((TEntity) entity.getEntity());
 			insert.executeUpdate();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public void delete(TEntity entity) {
+	public void persistDelete(Entity entity) {
 		try {
-			delete.setInt(1, entity.getId());
+			delete.setInt(1, ((TEntity) entity.getEntity()).getId());
 			delete.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

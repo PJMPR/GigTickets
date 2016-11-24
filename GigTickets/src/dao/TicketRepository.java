@@ -1,16 +1,16 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import domain.model.Ticket;
+import dao.uow.IUnitOfWork;
 
 public class TicketRepository extends RepositoryBase<Ticket> {
 
-	public TicketRepository(Connection connection, IMapResultSetIntoEntity<Ticket> mapper) {
-		super(connection, mapper);
+	public TicketRepository(Connection connection, IMapResultSetIntoEntity<Ticket> mapper, IUnitOfWork uow) {
+		super(connection, mapper, uow);
 	}
 
 	@Override
@@ -50,5 +50,6 @@ public class TicketRepository extends RepositoryBase<Ticket> {
 		update.setInt(4, ticket.getPrice());
 		update.setInt(5, ticket.getQuantity());
 	}
+	// add Lists
 
 }
