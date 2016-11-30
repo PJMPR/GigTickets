@@ -1,7 +1,11 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import domain.model.User;
@@ -12,6 +16,9 @@ public class UserRepository extends RepositoryBase<User> {
 	public UserRepository(Connection connection, IMapResultSetIntoEntity<User> mapper, IUnitOfWork uow) {
 		super(connection, mapper, uow);
 	}
+	
+	private PreparedStatement getName;
+    //private PreparedStatement getSurname;
 
 	@Override
 	protected String createTableSql() {
@@ -32,6 +39,14 @@ public class UserRepository extends RepositoryBase<User> {
 		return "UPDATE user SET (name, surname)=(?,?) WHERE id=?";
 	}
 
+	protected String getNameSql() {
+		return "SELECT * FROM user where name = ?";
+	}
+
+	protected String getSurNameSql() {
+		return "SELECT * FROM user where surName=?";
+	}
+
 	@Override
 	protected void setUpdate(User entity) throws SQLException {
 		update.setString(1, entity.getName());
@@ -45,5 +60,26 @@ public class UserRepository extends RepositoryBase<User> {
 		insert.setString(2, entity.getSurname());
 	}
 
-	// Add Lists
+	private List<User> searchBy(String value) {
+		List<User> user = new ArrayList<>();
+		try {
+			getName.setString(1, value);
+			ResultSet resultSet = getName.executeQuery();
+			while (resultSet.next()) {
+				user.add(mapper.map(resultSet));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	public List<User> withName(String name) {
+		return searchBy(name);
+	}
+
+	public List<User> withSurname(String surname) {
+		return searchBy(surname);
+	}
+
 }
