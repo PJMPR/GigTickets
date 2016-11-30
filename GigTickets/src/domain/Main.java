@@ -18,7 +18,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		//IRepositoryCatalog catalogOf;
-
+		
 		Ticket ticket1 = new Ticket();
 		ticket1.setName("tede");
 		ticket1.setDate("11-11-2016");
