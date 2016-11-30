@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
+import dao.repositories.ITicketRepository;
+import dao.repositories.IUserRepository;
 import domain.model.Ticket;
 import domain.model.User;
 import dao.uow.IUnitOfWork;
 
-public class TicketRepository extends RepositoryBase<Ticket> {
+public class TicketRepository extends RepositoryBase<Ticket> implements ITicketRepository{
 
 	public TicketRepository(Connection connection, IMapResultSetIntoEntity<Ticket> mapper, IUnitOfWork uow) {
 		super(connection, mapper, uow);
@@ -111,6 +113,30 @@ public class TicketRepository extends RepositoryBase<Ticket> {
 
 	public List<Ticket> byDate(String date) {
 		return searchBy(date);
+	}
+
+	@Override
+	public List<Ticket> withLocation(String location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Ticket> withDate(String date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Ticket> byPrice(Integer price) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Ticket> byQuantity(Integer quantity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

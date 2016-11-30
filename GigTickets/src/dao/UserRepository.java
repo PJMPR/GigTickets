@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
+import dao.repositories.IUserRepository;
 import domain.model.User;
 import dao.uow.IUnitOfWork;
 
-public class UserRepository extends RepositoryBase<User> {
+public class UserRepository extends RepositoryBase<User> implements IUserRepository {
 
 	public UserRepository(Connection connection, IMapResultSetIntoEntity<User> mapper, IUnitOfWork uow) {
 		super(connection, mapper, uow);

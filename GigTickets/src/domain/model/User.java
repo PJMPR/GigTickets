@@ -5,7 +5,6 @@ public class User implements IHaveId {
 	private int id;
 	private String name;
 	private String surname;
-	// stan konta?
 
 	public int getId() {
 		return id;

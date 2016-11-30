@@ -33,6 +33,22 @@ public class UnitOfWork implements IUnitOfWork {
 			e.printStackTrace();
 		}
 	}
+	
+	public void commit() {
+		for(Entity entity: entities)
+		{
+			entity.persist();
+		}
+		
+		try {
+			connection.commit();
+			entities.clear();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	public void rollback() {
 		entities.clear();

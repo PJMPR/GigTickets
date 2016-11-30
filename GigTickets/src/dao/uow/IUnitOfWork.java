@@ -1,6 +1,9 @@
 package dao.uow;
 
 public interface IUnitOfWork {
+
+	public void commit();
+
 	public void saveChanges();
 
 	public void rollback();
