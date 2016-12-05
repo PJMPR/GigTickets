@@ -8,6 +8,7 @@ public class Ticket implements IHaveId {
 	private String location;
 	private int price;
 	private int quantity;
+	private Gig information;
 
 	public Ticket(Integer id, String name, String date, String location, Integer price, Integer quantity) {
 		this.id = id;
@@ -69,4 +70,13 @@ public class Ticket implements IHaveId {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	public Gig getInformation() {
+		return information;
+	}
+
+	public void setInformation(Gig information) {
+		this.information = information;
+	}
+
 }
