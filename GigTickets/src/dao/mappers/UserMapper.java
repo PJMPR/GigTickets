@@ -10,7 +10,7 @@ public class UserMapper implements IMapResultSetIntoEntity<User> {
 	public User map(ResultSet rs) throws SQLException {
 		User user = new User();
 		user.setId(rs.getInt("id"));
-		user.setName(rs.getString("name"));
+		user.setUsername(rs.getString("username"));
 		user.setSurname(rs.getString("surname"));
 		return user;
 	}
