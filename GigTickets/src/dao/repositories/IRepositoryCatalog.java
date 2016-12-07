@@ -8,5 +8,7 @@ public interface IRepositoryCatalog {
 
 	public ITicketRepository Ticket();
 	
+	public IGigRepository Gig();
+	
 	public void save() throws SQLException;
 }

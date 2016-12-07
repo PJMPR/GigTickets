@@ -29,12 +29,13 @@ public class Main {
 		ticket1.setLocation("Warszawa");
 		ticket1.setPrice(30);
 		ticket1.setQuantity(500);
-		ticket1.setInformation(gig1);
+		//ticket1.setInformation(gig1);
 
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
 			IUnitOfWork uow = new UnitOfWork(connection);
 			IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
+			catalog.Gig().add(gig1);
 			catalog.Ticket().add(ticket1);
 
 			/*

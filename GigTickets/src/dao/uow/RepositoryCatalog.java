@@ -1,5 +1,6 @@
 package dao.uow;
 
+import dao.GigRepository;
 import dao.TicketRepository;
 import dao.UserRepository;
 import dao.mappers.*;
@@ -15,6 +16,7 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 	private IUnitOfWork uow;
 	private TicketMapper ticketMapper;
 	private UserMapper userMapper;
+	private GigMapper gigMapper;
 
 	public RepositoryCatalog(Connection connection, IUnitOfWork uow) {
 		super();
@@ -29,6 +31,10 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 
 	public IUserRepository User() {
 		return new UserRepository(connection, userMapper, uow);
+	}
+	
+	public IGigRepository Gig(){
+		return new GigRepository(connection, gigMapper, uow);
 	}
 
 	public void save() throws SQLException {
