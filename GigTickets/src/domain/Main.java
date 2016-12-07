@@ -29,7 +29,7 @@ public class Main {
 		ticket1.setLocation("Warszawa");
 		ticket1.setPrice(30);
 		ticket1.setQuantity(500);
-		//ticket1.setInformation(gig1);
+		ticket1.setInformation(gig1);
 
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
@@ -38,13 +38,6 @@ public class Main {
 			catalog.Gig().add(gig1);
 			catalog.Ticket().add(ticket1);
 
-			/*
-			 * System.out.println("Nazwa: " + ticket1FromDb.getName() +
-			 * ", data: " + ticket1FromDb.getDate() + ", lokalizacja: " +
-			 * ticket1FromDb.getLocation() + ", cena: " +
-			 * ticket1FromDb.getPrice() + ", ilosc sztuk: " +
-			 * ticket1FromDb.getQuantity());
-			 */
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
