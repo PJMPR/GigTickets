@@ -17,7 +17,19 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// IRepositoryCatalog catalogOf;
+		Connection connection;
+		 		try {
+		 			connection = DriverManager.getConnection("");
+		 	    	IRepositoryCatalog catalogOf = new RepositoryCatalog(connection, new UnitOfWork(connection));
+		 	    	
+		 	    	//List<Person> people =  catalogOf.People().withName("janek");
+		 	    	
+		 	    	//catalogOf.Dictionaries().withDictionaryName("gender");
+		 		} catch (SQLException e) {
+		 			e.printStackTrace();
+		 		}
+		/*
+		
 		Gig gig1 = new Gig();
 		gig1.setCategory("Rap");
 		gig1.setTitle("KEPTN");
@@ -37,15 +49,10 @@ public class Main {
 			IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
 			catalog.Ticket().add(ticket1);
 
-			/*
-			 * System.out.println("Nazwa: " + ticket1FromDb.getName() +
-			 * ", data: " + ticket1FromDb.getDate() + ", lokalizacja: " +
-			 * ticket1FromDb.getLocation() + ", cena: " +
-			 * ticket1FromDb.getPrice() + ", ilosc sztuk: " +
-			 * ticket1FromDb.getQuantity());
-			 */
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 }

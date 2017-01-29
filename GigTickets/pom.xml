@@ -11,6 +11,23 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+  	<dependency>
+		<groupId>javax</groupId>
+		<artifactId>javaee-web-api</artifactId>
+		<version>7.0</version>
+	</dependency>
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.4.1</version>
+			<scope>test</scope>
+		</dependency>
+			<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>2.4.1</version>
+			<scope>test</scope>
+		</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -23,6 +40,19 @@
     <artifactId>hsqldb</artifactId>
     <version>2.3.0</version>
 </dependency>
-    
-  </dependencies>
+ </dependencies>
+ 
+   <build>
+  	<plugins>
+  		<plugin>
+   			<groupId>org.mortbay.jetty</groupId>
+ 			<artifactId>jetty-maven-plugin</artifactId>
+ 			<version>8.0.3.v20111011</version>
+ 			<configuration>
+ 				<scanIntervalSeconds>3</scanIntervalSeconds>
+ 			</configuration>
+   		</plugin>
+   	</plugins>
+   </build>
+  
 </project>
